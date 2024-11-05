@@ -11,30 +11,25 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
       function handleCredentialResponse(response) {
-        console.log("User response:", response);
-        const data = jwt_decode(response.credential);
-        console.log("User information:", data);
-        document.getElementById("user-info").innerHTML = `
-          <p>Welcome, ${data.name}</p>
-          <p>Email: ${data.email}</p>
-          <img src="${data.picture}" alt="User Photo" style="width:50px; height:50px;">
-        `;
+      const data = jwt_decode(response.credential);
+      console.log("User information:", data);
+      document.getElementById("user-info").innerHTML = `
+        <p>Welcome, ${data.name}</p>
+        <p>Email: ${data.email}</p>
+        <img src="${data.picture}" alt="User Photo" style="width:50px; height:50px;">
+      `;
+    }
 
-
-        // Redirect to the home page after successful login
-        window.location.href = "index1.html"; // Replace with your target page
-      }
-      
       function initializeGoogleSignIn() {
-        google.accounts.id.initialize({
-          client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
-          callback: handleCredentialResponse
-        });
-        google.accounts.id.renderButton(
-          document.getElementById("google-signin-button"),
-          { theme: "outline", size: "large" }
-        );
-      }
+      google.accounts.id.initialize({
+        client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("google-signin-button"),
+        { theme: "outline", size: "large" }
+      );
+    }
     </script>
 </head>
 
@@ -110,7 +105,6 @@
         </div>
     </div>
 
-    <!--Script.js-->
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="script.js"></script>
 </body>
