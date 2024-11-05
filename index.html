@@ -8,6 +8,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     function handleCredentialResponse(response) {
+      console.log("User response:", response);
       const data = jwt_decode(response.credential);
       console.log("User information:", data);
       document.getElementById("user-info").innerHTML = `
@@ -43,7 +44,7 @@
     
     <p>or sign up with</p>
     <div class="social-login">
-      <button id="facebook-signin-button">Facebook</button>
+
       <div id="google-signin-button"></div>
     </div>
 
