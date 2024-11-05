@@ -23,8 +23,8 @@
             <h2 class="title animation" style="--i:0; --j:21">Login</h2>
             <form onsubmit="login(event)">
                 <div class="input-box animation" style="--i:1; --j:22">
-                    <input type="text" id="login-username" required>
-                    <label>Username</label>
+                    <input type="text" id="login-email" required>
+                    <label>Email</label>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box animation" style="--i:2; --j:23">
@@ -157,7 +157,7 @@
         // Login function
         function login(event) {
             event.preventDefault();
-            const email = document.getElementById('login-username').value;
+            const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
             auth.signInWithEmailAndPassword(email, password)
@@ -165,7 +165,7 @@
                     alert("Login successful.");
                     const user = userCredential.user;
                     document.cookie = `email=${email}; path=/; max-age=86400;`;
-                    window.location.href = "dashboard.html"; // Redirect to a dashboard or homepage
+                    window.location.href = "index1.html"; // Redirect to a dashboard or homepage
                 })
                 .catch((error) => {
                     alert("Error logging in: " + error.message);
