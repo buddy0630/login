@@ -1,81 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sign Up</title>
-        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
-        <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
-        <script>
-            // Your web app's Firebase configuration
-            const firebaseConfig = {
-                apiKey: "AIzaSyC9LzLVOkHttnOk6r7WmhE_hdDmBiSAX6Q",
-                authDomain: "it-udirtgal-1d0f0.firebaseapp.com",
-                projectId: "it-udirtgal-1d0f0",
-                storageBucket: "it-udirtgal-1d0f0.appspot.com",
-                messagingSenderId: "779825070222",
-                appId: "1:779825070222:web:f75505e545e08bcb14c9df",
-                measurementId: "G-K7JJZ8SQHQ"
-            };
-    
-            // Initialize Firebase
-            const app = firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth();
-    
-            // Function to handle Google sign-in response
-            function handleCredentialResponse(response) {
-                const data = jwt_decode(response.credential);
-                document.cookie = `name=${data.name}; path=/; max-age=86400;`;
-                document.cookie = `email=${data.email}; path=/; max-age=86400;`;
-                document.cookie = `picture=${data.picture}; path=/; max-age=86400;`;
-                window.location.href = "index1.html";
-            }
-    
-            function initializeGoogleSignIn() {
-                google.accounts.id.initialize({
-                    client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
-                    callback: handleCredentialResponse
-                });
-                google.accounts.id.renderButton(
-                    document.getElementById("google-signin-button"),
-                    { theme: "outline", size: "large" }
-                );
-            }
-    
-            // Sign Up function
-            function signUp(event) {
-                event.preventDefault();
-                const username = document.querySelector('input[type="text"]').value;
-                const email = document.querySelector('input[type="email"]').value;
-                const password = document.querySelectorAll('input[type="password"]')[1].value;
-    
-                auth.createUserWithEmailAndPassword(email, password)
-                    .then((userCredential) => {
-                        const user = userCredential.user;
-                        document.cookie = `name=${username}; path=/; max-age=86400;`;
-                        document.cookie = `email=${email}; path=/; max-age=86400;`;
-                        document.cookie = `picture=https://example.com/default-pic.png; path=/; max-age=86400;`;
-                        window.location.href = "index1.html";
-                    })
-                    .catch((error) => {
-                        const errorMessage = error.message;
-                        console.error("Error signing up:", errorMessage);
-                        alert(errorMessage);
-                    });
-            }
-    
-            // Initialize after DOM is fully loaded
-            window.onload = () => {
-                initializeGoogleSignIn();
-            };
-        </script>
-    </head>
-
-<body onload="initializeGoogleSignIn()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+</head>
+<body>
     <div class="wrapper">
         <span class="rotate-bg"></span>
         <span class="rotate-bg2"></span>
@@ -155,5 +92,73 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="script.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC9LzLVOkHttnOk6r7WmhE_hdDmBiSAX6Q",
+            authDomain: "it-udirtgal-1d0f0.firebaseapp.com",
+            projectId: "it-udirtgal-1d0f0",
+            storageBucket: "it-udirtgal-1d0f0.appspot.com",
+            messagingSenderId: "779825070222",
+            appId: "1:779825070222:web:f75505e545e08bcb14c9df",
+            measurementId: "G-K7JJZ8SQHQ"
+        };
+
+        let auth; // Declare auth variable
+
+        // Initialize Firebase
+        function initializeFirebase() {
+            const app = firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            initializeGoogleSignIn();
+        }
+
+        // Function to handle Google sign-in response
+        function handleCredentialResponse(response) {
+            const data = jwt_decode(response.credential);
+            document.cookie = `name=${data.name}; path=/; max-age=86400;`;
+            document.cookie = `email=${data.email}; path=/; max-age=86400;`;
+            document.cookie = `picture=${data.picture}; path=/; max-age=86400;`;
+            window.location.href = "index1.html";
+        }
+
+        function initializeGoogleSignIn() {
+            google.accounts.id.initialize({
+                client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-signin-button"),
+                { theme: "outline", size: "large" }
+            );
+        }
+
+        // Sign Up function
+        function signUp(event) {
+            event.preventDefault();
+            const username = document.querySelector('input[type="text"]').value;
+            const email = document.querySelector('input[type="email"]').value;
+            const password = document.querySelectorAll('input[type="password"]')[1].value;
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    document.cookie = `name=${username}; path=/; max-age=86400;`;
+                    document.cookie = `email=${email}; path=/; max-age=86400;`;
+                    document.cookie = `picture=https://example.com/default-pic.png; path=/; max-age=86400;`;
+                    window.location.href = "index1.html";
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    console.error("Error signing up:", errorMessage);
+                    alert(errorMessage);
+                });
+        }
+
+        // Initialize Firebase after all scripts are loaded
+        window.onload = initializeFirebase;
+    </script>
 </body>
 </html>
+
