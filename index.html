@@ -18,7 +18,7 @@
         <span class="rotate-bg"></span>
         <span class="rotate-bg2"></span>
 
-        <div class="form-box login" id="login-form">
+        <div class="form-box login">
             <h2 class="title animation" style="--i:0; --j:21">Login</h2>
             <form action="#">
                 <div class="input-box animation" style="--i:1; --j:22">
@@ -52,7 +52,7 @@
                 Deleniti,rem?</p>
         </div>
 
-        <div class="form-box register" id="register-form">
+        <div class="form-box register">
             <h2 class="title animation" style="--i:17; --j:0">Sign Up</h2>
             <form action="#" onsubmit="signUp(event)">
                 <div class="input-box animation" style="--i:18; --j:1">
@@ -123,7 +123,7 @@
             document.cookie = `name=${data.name}; path=/; max-age=86400;`;
             document.cookie = `email=${data.email}; path=/; max-age=86400;`;
             document.cookie = `picture=${data.picture}; path=/; max-age=86400;`;
-            window.location.href = "index1.html"; // Change this if you want to keep it as is.
+            window.location.href = "index1.html";
         }
 
         function initializeGoogleSignIn(auth) {
@@ -150,9 +150,7 @@
                     document.cookie = `name=${username}; path=/; max-age=86400;`;
                     document.cookie = `email=${email}; path=/; max-age=86400;`;
                     document.cookie = `picture=https://example.com/default-pic.png; path=/; max-age=86400;`;
-                    // Hide the register form and show the login form
-                    document.getElementById("register-form").style.display = "none";
-                    document.getElementById("login-form").style.display = "block";
+                    // window.location.href = "index.html";
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
