@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sign Up</title>
-        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
-        <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js" defer></script>
-        <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js" defer></script>
-        <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js" defer></script>
-    </head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js" defer></script>
+</head>
+
 <body>
     <div class="wrapper">
         <span class="rotate-bg"></span>
@@ -47,7 +48,8 @@
 
         <div class="info-text login">
             <h2 class="animation" style="--i:0; --j:20">Welcome Back!</h2>
-            <p class="animation" style="--i:1; --j:21">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti,rem?</p>
+            <p class="animation" style="--i:1; --j:21">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Deleniti,rem?</p>
         </div>
 
         <div class="form-box register">
@@ -86,7 +88,8 @@
 
         <div class="info-text register">
             <h2 class="animation" style="--i:17; --j:0;">Welcome Back!</h2>
-            <p class="animation" style="--i:18; --j:1;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti,rem?</p>
+            <p class="animation" style="--i:18; --j:1;">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Deleniti,rem?</p>
         </div>
     </div>
 
@@ -105,11 +108,13 @@
             measurementId: "G-K7JJZ8SQHQ"
         };
 
-        // Initialize Firebase
+        // Declare auth in the global scope
+        let auth;
+
         function initializeFirebase() {
             const app = firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth();
-            initializeGoogleSignIn(auth);
+            auth = firebase.auth(); // Now auth is globally accessible
+            initializeGoogleSignIn();
         }
 
         // Function to handle Google sign-in response
@@ -154,9 +159,9 @@
                 });
         }
 
-        // Initialize Firebase after all scripts are loaded
-        window.onload = initializeFirebase;
+        // Initialize after DOM content is loaded
+        document.addEventListener('DOMContentLoaded', initializeFirebase);
     </script>
 </body>
-</html>
 
+</html>
