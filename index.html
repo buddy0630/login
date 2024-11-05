@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up</title>
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js" defer></script>
+        <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js" defer></script>
+    </head>
 <body>
     <div class="wrapper">
         <span class="rotate-bg"></span>
@@ -105,13 +105,11 @@
             measurementId: "G-K7JJZ8SQHQ"
         };
 
-        let auth; // Declare auth variable
-
         // Initialize Firebase
         function initializeFirebase() {
             const app = firebase.initializeApp(firebaseConfig);
-            auth = firebase.auth();
-            initializeGoogleSignIn();
+            const auth = firebase.auth();
+            initializeGoogleSignIn(auth);
         }
 
         // Function to handle Google sign-in response
@@ -123,7 +121,7 @@
             window.location.href = "index1.html";
         }
 
-        function initializeGoogleSignIn() {
+        function initializeGoogleSignIn(auth) {
             google.accounts.id.initialize({
                 client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
                 callback: handleCredentialResponse
