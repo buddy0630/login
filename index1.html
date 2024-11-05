@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -76,8 +75,6 @@
             height: 24px;
             margin-right: 10px;
         }
-        
-        /* User info styling */
         #user-info {
             position: absolute;
             top: 20px;
@@ -89,50 +86,19 @@
             border-radius: 20px;
             color: #333;
         }
-
         #user-info img {
             width: 30px;
             height: 30px;
             border-radius: 50%;
             margin-right: 10px;
         }
-
         #user-info p {
             margin: 0;
             font-size: 0.9em;
         }
     </style>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
-    <script>
-        function handleCredentialResponse(response) {
-            const data = jwt_decode(response.credential);
-
-            // Ensure that `picture`, `name`, and `email` exist before updating the HTML
-            document.getElementById("user-info").innerHTML = `
-                <img src="${data.picture || ''}" alt="User Photo">
-                <p>${data.name || 'Unknown'}</p>
-                <p>${data.email || ''}</p>
-            `;
-        }
-
-        function initializeGoogleSignIn() {
-            google.accounts.id.initialize({
-                client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-            });
-            google.accounts.id.renderButton(
-                document.getElementById("google-signin-button"),
-                { theme: "outline", size: "large" }
-            );
-            google.accounts.id.prompt(); // Automatically prompt if the user is signed in
-        }
-    </script>
 </head>
-<body onload="initializeGoogleSignIn()">
-   
-
-    <!-- User info container for top-right corner display -->
+<body onload="displayUserInfo()">
     <div id="user-info"></div>
 
     <h1>Weather App</h1>
@@ -155,6 +121,7 @@
     </div>
 
     <script>
+        // Display user information from sessionStorage
         function displayUserInfo() {
             const userName = sessionStorage.getItem("userName");
             const userEmail = sessionStorage.getItem("userEmail");
@@ -162,7 +129,7 @@
 
             if (userName && userEmail && userImage) {
                 document.getElementById("user-info").innerHTML = `
-                    <img src="${userImage}" alt="User Photo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                    <img src="${userImage}" alt="User Photo">
                     <p>${userName}</p>
                     <p>${userEmail}</p>
                 `;
@@ -170,11 +137,9 @@
                 document.getElementById("user-info").innerText = "User not logged in.";
             }
         }
-    </script>
-    
-    <script>
-        const apiKey = 'd204a5bf9c189e5db82a31d6f49cafb1';
 
+        // Weather app functionality
+        const apiKey = 'd204a5bf9c189e5db82a31d6f49cafb1';
         document.getElementById('getWeatherBtn').addEventListener('click', () => {
             const city = document.getElementById('cityInput').value;
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
@@ -203,4 +168,5 @@
     </script>
 </body>
 </html>
+
 
