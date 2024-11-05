@@ -150,7 +150,7 @@
                     document.cookie = `name=${username}; path=/; max-age=86400;`;
                     document.cookie = `email=${email}; path=/; max-age=86400;`;
                     document.cookie = `picture=https://example.com/default-pic.png; path=/; max-age=86400;`;
-                    // window.location.href = "index.html";
+                    wrapper.classList.remove('active');
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
