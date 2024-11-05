@@ -52,11 +52,6 @@
         <div class="form-box register">
             <h2 class="title animation" style="--i:17; --j:0">Sign Up</h2>
             <form action="#" onsubmit="signUp(event)">
-                <div class="input-box animation" style="--i:18; --j:1">
-                    <input type="text" required>
-                    <label for="">Username</label>
-                    <i class='bx bxs-user'></i>
-                </div>
 
                 <div class="input-box animation" style="--i:19; --j:2">
                     <input type="email" required>
@@ -137,7 +132,6 @@
         // Sign Up function
         function signUp(event) {
             event.preventDefault();
-            const username = document.querySelector('input[type="text"]').value;
             const email = document.querySelector('input[type="email"]').value;
             const password = document.querySelectorAll('input[type="password"]')[1].value;
 
