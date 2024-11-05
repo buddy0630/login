@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -76,9 +77,59 @@
             margin-right: 10px;
         }
 
+        /* User info styling */
+        #user-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 15px;
+            border-radius: 20px;
+            color: #333;
+        }
+
+        #user-info img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        #user-info p {
+            margin: 0;
+            font-size: 0.9em;
+        }
     </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script>
+        function handleCredentialResponse(response) {
+            const data = jwt_decode(response.credential);
+            document.getElementById("user-info").innerHTML = `
+                <img src="${data.picture}" alt="User Photo">
+                <p>${data.name}</p>
+                <p>${data.email}</p>
+            `;
+        }
+
+        function initializeGoogleSignIn() {
+            google.accounts.id.initialize({
+                client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-signin-button"),
+                { theme: "outline", size: "large" }
+            );
+        }
+    </script>
 </head>
-<body>
+<body onload="initializeGoogleSignIn()">
+    <!-- User info container for top-right corner display -->
+    <div id="user-info"></div>
+
     <h1>Weather App</h1>
     <input type="text" id="cityInput" placeholder="Enter city name" value="Ulaanbaatar">
     <button id="getWeatherBtn">Get Weather</button>
@@ -113,7 +164,6 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log("data: ",data);
                     const description = data.weather[0].description;
                     const temperature = data.main.temp;
                     const humidity = data.main.humidity;
