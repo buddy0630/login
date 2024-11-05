@@ -137,10 +137,15 @@
 
         if (name && email && picture) {
             document.getElementById("user-info").innerHTML = `
-                <img src="${picture}" alt="User Photo">
-                <p>${name}</p>
-                <p>${email}</p>
-            `;
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="${picture}" alt="User Photo" style="width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);">
+        <div style="text-align: left;">
+            <p style="margin: 0; font-weight: bold; color: #333;">${name}</p>
+            <p style="margin: 0; font-size: 0.9em; color: #666;">${email}</p>
+        </div>
+    </div>
+`;
+
         }
     }
 
