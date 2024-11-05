@@ -150,6 +150,9 @@
                     document.cookie = `name=${username}; path=/; max-age=86400;`;
                     document.cookie = `email=${email}; path=/; max-age=86400;`;
                     document.cookie = `picture=https://example.com/default-pic.png; path=/; max-age=86400;`;
+
+                    alert("sign up success.");
+
                     // Trigger animation on success
                     document.querySelector('.wrapper').classList.remove('active');
                 })
