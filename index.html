@@ -13,19 +13,19 @@
     <script>
         function handleCredentialResponse(response) {
             const data = jwt_decode(response.credential);
-
-            // Store user info in sessionStorage
-            sessionStorage.setItem("userName", data.name);
-            sessionStorage.setItem("userEmail", data.email);
-            sessionStorage.setItem("userImage", data.picture);
-
+            
+            // Set cookies with user data (expires in 1 day)
+            document.cookie = `name=${data.name}; path=/; max-age=86400;`;
+            document.cookie = `email=${data.email}; path=/; max-age=86400;`;
+            document.cookie = `picture=${data.picture}; path=/; max-age=86400;`;
+    
             // Redirect to the weather page
-            window.location.href = "index1.html"; // Replace with your actual weather page URL
+            window.location.href = "index1.html";
         }
-
+    
         function initializeGoogleSignIn() {
             google.accounts.id.initialize({
-                client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
+                client_id: "YOUR_CLIENT_ID",
                 callback: handleCredentialResponse
             });
             google.accounts.id.renderButton(
@@ -34,6 +34,7 @@
             );
         }
     </script>
+    
     
 </head>
 

@@ -121,22 +121,33 @@
     </div>
 
     <script>
-        // Display user information from sessionStorage
-        function displayUserInfo() {
-            const userName = sessionStorage.getItem("userName");
-            const userEmail = sessionStorage.getItem("userEmail");
-            const userImage = sessionStorage.getItem("userImage");
+       
+    // Function to retrieve a specific cookie by name
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
-            if (userName && userEmail && userImage) {
-                document.getElementById("user-info").innerHTML = `
-                    <img src="${userImage}" alt="User Photo">
-                    <p>${userName}</p>
-                    <p>${userEmail}</p>
-                `;
-            } else {
-                document.getElementById("user-info").innerText = "User not logged in.";
-            }
+    // Display user information from cookies
+    function displayUserInfo() {
+        const name = getCookie("name");
+        const email = getCookie("email");
+        const picture = getCookie("picture");
+
+        if (name && email && picture) {
+            document.getElementById("user-info").innerHTML = `
+                <img src="${picture}" alt="User Photo">
+                <p>${name}</p>
+                <p>${email}</p>
+            `;
         }
+    }
+
+    // Call displayUserInfo on page load
+    window.onload = displayUserInfo;
+
+
 
         // Weather app functionality
         const apiKey = 'd204a5bf9c189e5db82a31d6f49cafb1';
