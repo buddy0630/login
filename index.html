@@ -143,20 +143,9 @@
 
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                    const user = userCredential.user;
-
-                    // Update the displayName for the user
-                    user.updateProfile({
-                        displayName: username
-                    }).then(() => {
-                        alert("Sign up successful.");
-                        console.log("Display name set to:", username);
-
-                        // Trigger animation on success
-                        document.querySelector('.wrapper').classList.remove('active');
-                    }).catch((error) => {
-                        console.error("Error setting displayName:", error);
-                    });
+                    alert("sign up success.");
+                    // Trigger animation on success
+                    document.querySelector('.wrapper').classList.remove('active');
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
@@ -177,11 +166,12 @@
                     const user = userCredential.user;
                     console.log("user: ", user);
 
-                    document.cookie = `name=${user.displayName}; path=/; max-age=86400;`;
+                    const username = email.split('@')[0];
+                    document.cookie = `name=${username}; path=/; max-age=86400;`;
                     document.cookie = `email=${email}; path=/; max-age=86400;`;
                     document.cookie = `picture=https://i.pinimg.com/1200x/c0/27/be/c027bec07c2dc08b9df60921dfd539bd.jpg; path=/; max-age=86400;`;
 
-                    window.location.href = "index1.html"; // Redirect to a dashboard or homepage
+                    window.location.href = "index1.html";
                 })
                 .catch((error) => {
                     alert("Error logging in: " + error.message);
