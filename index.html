@@ -18,30 +18,23 @@
         <span class="rotate-bg"></span>
         <span class="rotate-bg2"></span>
 
+        <!-- Login Form -->
         <div class="form-box login">
             <h2 class="title animation" style="--i:0; --j:21">Login</h2>
-            <form action="#">
+            <form onsubmit="login(event)">
                 <div class="input-box animation" style="--i:1; --j:22">
-                    <input type="text" required>
-                    <label for="">Username</label>
+                    <input type="text" id="login-username" required>
+                    <label>Username</label>
                     <i class='bx bxs-user'></i>
                 </div>
-
                 <div class="input-box animation" style="--i:2; --j:23">
-                    <input type="password" required>
-                    <label for="">Password</label>
+                    <input type="password" id="login-password" required>
+                    <label>Password</label>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn animation" style="--i:3; --j:24">Login</button>
-                <div class="g_signin" style="text-align: center;">
-                    <div class="g_id_signin" data-type="standard"></div>
-                </div>
                 <div class="linkTxt animation" style="--i:5; --j:25">
                     <p>Don't have an account? <a href="#" class="register-link">Sign Up</a></p>
-                    <p>or sign up with</p>
-                    <div class="social-login">
-                        <div id="google-signin-button"></div>
-                    </div>
                 </div>
             </form>
         </div>
@@ -158,6 +151,24 @@
                     const errorMessage = error.message;
                     console.error("Error signing up:", errorMessage);
                     alert(errorMessage);
+                });
+        }
+
+        // Login function
+        function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    alert("Login successful.");
+                    const user = userCredential.user;
+                    document.cookie = `email=${email}; path=/; max-age=86400;`;
+                    window.location.href = "dashboard.html"; // Redirect to a dashboard or homepage
+                })
+                .catch((error) => {
+                    alert("Error logging in: " + error.message);
                 });
         }
 
