@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        #weather {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: #2193b0;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            width: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6dd5ed;
+        }
+
+        .weather-info {
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        .weather-info img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Weather App</h1>
+    <input type="text" id="cityInput" placeholder="Enter city name" value="Ulaanbaatar">
+    <button id="getWeatherBtn">Get Weather</button>
+
+    <div id="weather">
+        <div class="weather-info">
+            <img src="https://img.icons8.com/ios-filled/50/000000/weather.png" alt="Weather icon">
+            <p id="description">Weather: --</p>
+        </div>
+        <div class="weather-info">
+            <img src="https://img.icons8.com/ios-filled/50/000000/thermometer.png" alt="Temperature icon">
+            <p id="temperature">Temperature: -- °C</p>
+        </div>
+        <div class="weather-info">
+            <img src="https://img.icons8.com/ios-filled/50/000000/humidity.png" alt="Humidity icon">
+            <p id="humidity">Humidity: -- %</p>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = 'd204a5bf9c189e5db82a31d6f49cafb1'; 
+
+        document.getElementById('getWeatherBtn').addEventListener('click', () => {
+            const city = document.getElementById('cityInput').value;
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('City not found');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("data: ",data);
+                    const description = data.weather[0].description;
+                    const temperature = data.main.temp;
+                    const humidity = data.main.humidity;
+
+                    document.getElementById('description').innerText = `Weather: ${description}`;
+                    document.getElementById('temperature').innerText = `Temperature: ${temperature} °C`;
+                    document.getElementById('humidity').innerText = `Humidity: ${humidity} %`;
+                })
+                .catch(error => {
+                    console.error('Error fetching the weather data:', error);
+                    document.getElementById('weather').innerHTML = '<p>Failed to load weather data. Please check the city name.</p>';
+                });
+        });
+    </script>
+</body>
+</html>
