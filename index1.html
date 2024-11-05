@@ -130,8 +130,7 @@
     </script>
 </head>
 <body onload="initializeGoogleSignIn()">
-    <!-- Google Sign-In button container -->
-    <div id="google-signin-button"></div>
+   
 
     <!-- User info container for top-right corner display -->
     <div id="user-info"></div>
@@ -155,6 +154,24 @@
         </div>
     </div>
 
+    <script>
+        function displayUserInfo() {
+            const userName = sessionStorage.getItem("userName");
+            const userEmail = sessionStorage.getItem("userEmail");
+            const userImage = sessionStorage.getItem("userImage");
+
+            if (userName && userEmail && userImage) {
+                document.getElementById("user-info").innerHTML = `
+                    <img src="${userImage}" alt="User Photo" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                    <p>${userName}</p>
+                    <p>${userEmail}</p>
+                `;
+            } else {
+                document.getElementById("user-info").innerText = "User not logged in.";
+            }
+        }
+    </script>
+    
     <script>
         const apiKey = 'd204a5bf9c189e5db82a31d6f49cafb1';
 

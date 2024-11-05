@@ -10,28 +10,30 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-      function handleCredentialResponse(response) {
-      const data = jwt_decode(response.credential);
-      console.log("User information:", data);
-      document.getElementById("user-info").innerHTML = `
-        <p>Welcome, ${data.name}</p>
-        <p>Email: ${data.email}</p>
-        <img src="${data.picture}" alt="User Photo" style="width:50px; height:50px;">
-      `;
-      window.location.href = "index1.html";
-    }
-
-      function initializeGoogleSignIn() {
-      google.accounts.id.initialize({
-        client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
-        callback: handleCredentialResponse
-      });
-      google.accounts.id.renderButton(
-        document.getElementById("google-signin-button"),
-        { theme: "outline", size: "large" }
-      );
-    }
+        function handleCredentialResponse(response) {
+            const data = jwt_decode(response.credential);
+    
+            // Store user info in sessionStorage
+            sessionStorage.setItem("userName", data.name);
+            sessionStorage.setItem("userEmail", data.email);
+            sessionStorage.setItem("userImage", data.picture);
+    
+            // Redirect to the weather page
+            window.location.href = "weather.html"; // Replace with your weather page URL
+        }
+    
+        function initializeGoogleSignIn() {
+            google.accounts.id.initialize({
+                client_id: "820094831233-i1gbs561cchbm7dcmv2grmjc89pjpqnc.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-signin-button"),
+                { theme: "outline", size: "large" }
+            );
+        }
     </script>
+    
 </head>
 
 <body onload="initializeGoogleSignIn()">
